@@ -11,11 +11,14 @@ import static reader.FileReader.readFile;
 import static runner.Constants.INPUT_FOLDER_PATH;
 
 public class Runner {
+    /**
+    Main function for running the program
+     */
     public static void runApplication(String[] args){
         for (String fileName : getFileNames(INPUT_FOLDER_PATH)) {
             TransactionFile transactionFile = readFile(fileName);
-            transactionFile.calculateCosts();
-            transactionFile.createTextFile();
+            //transactionFile.calculateCosts();
+            //transactionFile.createTextFile();
         }
     }
 
