@@ -12,11 +12,11 @@ import static runner.Constants.INPUT_FOLDER_PATH;
 
 public class Runner {
     public static void runApplication(String[] args){
-//        for (String fileName : getFileNames(INPUT_FOLDER_PATH)) {
-//            TransactionFile transactionFile = readFile(fileName);
-//            transactionFile.calculateCosts();
-//            transactionFile.createTextFile();
-//        }
+        for (String fileName : getFileNames(INPUT_FOLDER_PATH)) {
+            TransactionFile transactionFile = readFile(fileName);
+            transactionFile.calculateCosts();
+            transactionFile.createTextFile();
+        }
     }
 
     /**
