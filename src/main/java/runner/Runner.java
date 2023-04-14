@@ -18,6 +18,7 @@ public class Runner {
 //            transactionFile.createTextFile();
 //        }
     }
+
     /**
      Retrieves the names of all .txt files in the "input/" directory.
      @return A list of Strings representing the names of all .txt files in the "input/" directory.
@@ -38,8 +39,7 @@ public class Runner {
         }
         return output;
     }
-    public List<String> getFileNamesTest(String pathString) {
+    public static List<String> getFileNamesTest(String pathString) {
         return getFileNames(pathString);
     }
-
 }

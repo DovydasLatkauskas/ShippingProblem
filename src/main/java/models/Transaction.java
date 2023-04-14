@@ -40,8 +40,10 @@ public class Transaction {
     public String toString() {
         if (!(badInputText == null)){
             return String.format("%s Ignored", getBadInputText());
-        } else if (shipmentCostCents == null || discountCents == null){
+        } else if (shipmentCostCents == null && discountCents == null){
             return String.format("%tY-%tm-%td %s %s", getDate(), getDate(), getDate(), getPackageSize(), getDeliveryMethod());
+        }else if (discountCents == null){
+            return String.format("%tY-%tm-%td %s %s %s -", getDate(), getDate(), getDate(), getPackageSize(), getDeliveryMethod(), getShipmentCostString());
         } else{
             return String.format("%tY-%tm-%td %s %s %s %s", getDate(), getDate(), getDate(),
                     getPackageSize(), getDeliveryMethod(), getShipmentCostString(), getDiscountString());

@@ -23,6 +23,13 @@ public class TransactionTest {
         assertEquals(expected, transaction.toString());
     }
     @Test
+    public void testToStringNoDiscount() {
+        Transaction transaction = new Transaction(LocalDate.of(2022, 11, 23),
+                PackageSize.S, DeliveryMethod.MR, 3012, null);
+        String expected = "2022-11-23 S MR 30.12 -";
+        assertEquals(expected, transaction.toString());
+    }
+    @Test
     public void testToStringBadInput() {
         Transaction transaction = new Transaction("2015-02-29 CUSPS");
         String expected = "2015-02-29 CUSPS Ignored";
