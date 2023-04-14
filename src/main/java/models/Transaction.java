@@ -53,12 +53,12 @@ public class Transaction {
     private String getShipmentCostString() {
         Integer euros = getShipmentCostCents() / 100; // could be pounds or dollars, doesn't matter
         Integer cents = getShipmentCostCents() % 100;
-        return String.format("%d.%d", euros, cents);
+        return String.format("%d.%02d", euros, cents);
     }
     private String getDiscountString() {
         Integer euros = getDiscountCents() / 100;
         Integer cents = getDiscountCents() % 100;
-        return String.format("%d.%d", euros, cents);
+        return String.format("%d.%02d", euros, cents);
     }
 
     public LocalDate getDate() {
@@ -89,23 +89,17 @@ public class Transaction {
         return shipmentCostCents;
     }
 
-    public void setShipmentCostCents(Integer shipmentCostCents) {
-        this.shipmentCostCents = shipmentCostCents;
-    }
+    public void setShipmentCostCents(Integer shipmentCostCents) { this.shipmentCostCents = shipmentCostCents; }
 
     public Integer getDiscountCents() {
         return discountCents;
     }
 
-    public void setDiscountCents(Integer discountCents) {
-        this.discountCents = discountCents;
-    }
+    public void setDiscountCents(Integer discountCents) { this.discountCents = discountCents; }
 
     public String getBadInputText() {
         return badInputText;
     }
 
-    public void setBadInputText(String badInputText) {
-        this.badInputText = badInputText;
-    }
+    public void setBadInputText(String badInputText) { this.badInputText = badInputText; }
 }
