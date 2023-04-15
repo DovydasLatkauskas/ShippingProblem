@@ -44,6 +44,7 @@ public class DiscountRules {
     }
 
     private static Transaction matchSmallShipmentPrice(){
-
+        //TODO complete
+        return new Transaction("temp");
     }
 }
