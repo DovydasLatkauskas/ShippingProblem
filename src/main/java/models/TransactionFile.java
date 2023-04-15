@@ -7,4 +7,15 @@ public class TransactionFile {
     public TransactionFile(List<Transaction> transactionList) {
         this.transactionList = transactionList;
     }
+//    public void calculateCosts() {
+//        setTransactionList(applyDiscount(getTransactionList()));
+//    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
+    }
 }

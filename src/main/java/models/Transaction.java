@@ -18,7 +18,7 @@ public class Transaction {
         this.packageSize = packageSize;
         this.deliveryMethod = deliveryMethod;
         this.shipmentCostCents = null;
-        this.discountCents = null;
+        this.discountCents = 0;
         this.badInputText = null;
     }
 
@@ -40,9 +40,9 @@ public class Transaction {
     public String toString() {
         if (!(badInputText == null)){
             return String.format("%s Ignored", getBadInputText());
-        } else if (shipmentCostCents == null && discountCents == null){
+        } else if (shipmentCostCents == null && discountCents.equals(0)){
             return String.format("%tY-%tm-%td %s %s", getDate(), getDate(), getDate(), getPackageSize(), getDeliveryMethod());
-        }else if (discountCents == null){
+        }else if (discountCents.equals(0)){
             return String.format("%tY-%tm-%td %s %s %s -", getDate(), getDate(), getDate(), getPackageSize(), getDeliveryMethod(), getShipmentCostString());
         } else{
             return String.format("%tY-%tm-%td %s %s %s %s", getDate(), getDate(), getDate(),

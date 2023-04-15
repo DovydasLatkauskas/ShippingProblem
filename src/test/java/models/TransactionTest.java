@@ -25,7 +25,7 @@ public class TransactionTest {
     @Test
     public void testToStringNoDiscount() {
         Transaction transaction = new Transaction(LocalDate.of(2022, 11, 23),
-                PackageSize.S, DeliveryMethod.MR, 3012, null);
+                PackageSize.S, DeliveryMethod.MR, 3012, 0);
         String expected = "2022-11-23 S MR 30.12 -";
         assertEquals(expected, transaction.toString());
     }

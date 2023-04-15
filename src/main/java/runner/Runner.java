@@ -19,6 +19,7 @@ public class Runner {
             TransactionFile transactionFile = readFile(fileName);
             //transactionFile.calculateCosts();
             //transactionFile.createTextFile();
+            //transactionFile.printToConsole();
         }
     }
 
