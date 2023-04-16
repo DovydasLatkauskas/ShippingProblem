@@ -22,7 +22,7 @@ Optional:
 - Maven - to run tests
 
 ## Running the project
-1. Download ShippingProblem-1.0-BUILD.jar
+1. Download ShippingProblem-1.0-BUILD.jar from https://github.com/DovydasLatkauskas/ShippingProblem
 2. In the same folder create an "input/" directory with as many .txt files as you want
 3. open console in the directory containing the .jar file and run: "$java -jar ShippingProblem-1.0-BUILD.jar"
 
@@ -37,7 +37,7 @@ Running the project will show the applied discounts in the console and create a 
 ## Running Unit Tests
 Requires maven
 
-1. Clone the repository from GitHub
+1. Clone the repository from GitHub https://github.com/DovydasLatkauskas/ShippingProblem
 2. Open console in the root folder of the project
 3. Run "$mvn clean package" to build the project
 4. Run "$mvn test" to run the unit tests
@@ -51,12 +51,22 @@ It is easy to modify existing rules and add new ones.
 
 To add a new discount rule:
 Add it in DiscountRule.java, append it to discountList in getDiscountRuleList()
+If there are any additional non-monetary monthly restrictions for these discounts add them to MonthlyRestrictions
 
 To change the maximum discount amount per month change it in Constants.java
 Same for input and output folder paths
 
 For new postal services just add them to the enum in DeliveryMethod.java
 To add new PackageSizes go to PackageSize.java and define their delivery prices in DeliveryMethod.java
+
+# Design choices
+- Postal services and package sizes are represented as enums, thus it is trivial to add new ones
+
+- For easy addition of new rules, discount rules are represented as instances of the abstract DiscountRule class and are all run as long as they are added to getDiscountRuleList()
+
+- Maximum monthly discounts, input and output paths are defined in Constants.java for easy modification
+
+- main in Main.java only calls runApplication in Runner.java, so that we can use runApplication with different input and output paths for Unit Testing
 
 # Project structure
 ![image](https://user-images.githubusercontent.com/77624813/232336638-7707e7cd-e3c7-43f9-8361-284bb873f80d.png)
