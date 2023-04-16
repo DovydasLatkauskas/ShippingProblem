@@ -109,6 +109,7 @@ public class Transaction {
     }
 
     public void setDiscountCents(Integer discountCents) { this.discountCents = discountCents; }
+    public void increaseDiscountCents(Integer discountCents) { this.discountCents = discountCents + getDiscountCents(); }
 
     public String getBadInputText() {
         return badInputText;
