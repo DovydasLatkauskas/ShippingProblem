@@ -4,14 +4,14 @@ package models;
  * Represents a delivery method with different prices for S, M, and L packages.
  */
 public enum DeliveryMethod {
-    LP(1.0, 2.0, 3.0), // prices for S, M, L packages
-    MR(1.5, 3.0, 4.5); // prices for S, M, L packages
+    LP(150, 490, 690), // prices for S, M, L packages in cents
+    MR(200, 300, 400); // prices for S, M, L packages in cents
 
-    private final double priceS;
-    private final double priceM;
-    private final double priceL;
+    private final int priceS;
+    private final int priceM;
+    private final int priceL;
 
-    private DeliveryMethod(double priceS, double priceM, double priceL) {
+    private DeliveryMethod(int priceS, int priceM, int priceL) {
         this.priceS = priceS;
         this.priceM = priceM;
         this.priceL = priceL;

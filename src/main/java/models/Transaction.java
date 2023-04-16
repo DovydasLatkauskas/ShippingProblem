@@ -91,7 +91,10 @@ public class Transaction {
         return shipmentCostCents;
     }
 
-    public void setShipmentCostCents(Integer shipmentCostCents) { this.shipmentCostCents = shipmentCostCents; }
+    public void setShipmentCostCents(Integer discountAmountCents) {
+        shipmentPrice = getDeliveryMethod().getPrice(getPackageSize());
+        this.shipmentCostCents = shipmentCostCents;
+    }
 
     public Integer getDiscountCents() {
         return discountCents;

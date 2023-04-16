@@ -18,7 +18,7 @@ public class DiscountRules {
             for(DiscountRule discountRule : discountList){
                 int discountAmount = checkDiscountMonth(discountRule.apply(transaction), discountsLeftEachMonth, transaction);
                 transaction.setDiscountCents(discountAmount);
-                //transaction.setShipmentCostCents(); //TODO complete
+                transaction.setShipmentCostCents(); //TODO complete
 
                 // TODO create discountList
                 // TODO change setDiscountCents
