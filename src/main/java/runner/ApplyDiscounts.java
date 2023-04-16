@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static runner.Constants.TOTAL_DISCOUNT_MONTH_CENTS;
+import static runner.DiscountRule.getDiscountRuleList;
 
 public class ApplyDiscounts {
     public static List<Transaction> applyDiscounts(List<Transaction> input){
@@ -25,12 +26,6 @@ public class ApplyDiscounts {
             }
         }
         return new ArrayList<Transaction>(); // temporary code to compile
-    }
-
-    public static List<DiscountRule> getDiscountRuleList(){
-        List<DiscountRule> discountList = new ArrayList<>();
-        discountList.add(new MatchSmallPackagePrice());
-        return discountList;
     }
 
     /**
