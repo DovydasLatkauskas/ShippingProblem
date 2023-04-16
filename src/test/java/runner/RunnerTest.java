@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,16 +17,32 @@ public class RunnerTest {
         runApplication(new String[0], "input/", "output/");
     }
     @Test
-    void testRunnerWithInputTxt() throws IOException {
+    void testWithInput1() throws IOException {
+        testRunner("test1.txt", "output_of_test1.txt");
+    }
+    @Test
+    void testWithInput2() throws IOException {
+        testRunner("test2.txt", "output_of_test2.txt");
+    }
+    @Test
+    void testWithInput3() throws IOException {
+        testRunner("test3.txt", "output_of_test3.txt");
+    }
+
+    private void testRunner(String inputFileName, String outputFileName) throws IOException {
+        File inputFile = new File("src/test/input/" + inputFileName);
         File tempDir = new File("src/test/output/temp");
         tempDir.mkdirs();
-        runApplication(new String[0], "src/test/input", tempDir.getPath() + "/");
-        File file1 = new File("src/test/output/output_of_test1.txt");
-        File file2 = new File(tempDir.getPath() + "/output_of_test1.txt");
-        assertTrue(Files.mismatch(file1.toPath(), file2.toPath()) == -1);
-        file2.delete();
-        tempDir.delete();
+
+        runApplication(new String[0], inputFile.getParent(), tempDir.getPath() + "/");
+
+        File expectedOutputFile = new File("src/test/output/" + outputFileName);
+        File actualOutputFile = new File(tempDir.getPath(), outputFileName);
+        assertTrue(Files.mismatch(expectedOutputFile.toPath(), actualOutputFile.toPath()) == -1);
+
+        deleteFolder("src/test/output/temp");
     }
+
 
     @Test
     void testGetFileNames() {
@@ -55,5 +70,23 @@ public class RunnerTest {
         file2.delete();
         file3.delete();
         tempDir.delete();
+    }
+
+    public void deleteFolder(String folderPath) {
+        File folder = new File(folderPath);
+
+        if (folder.exists()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteFolder(file.getAbsolutePath());
+                    } else {
+                        file.delete();
+                    }
+                }
+            }
+            folder.delete();
+        }
     }
 }

@@ -25,14 +25,17 @@ public class TransactionFile {
     public void createTextFile(String outputFolderPath, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFolderPath + "output_of_" + fileName))) {
             for (Transaction transaction : getTransactionList()) {
-                writer.write(transaction.toString());
-                writer.newLine(); // Add a new line after each transaction
+                writer.write(transaction.toString() + "\n");
             }
         } catch (IOException e) {
             System.out.println("An error occurred in TransactionFile.createTextFile.");
             e.printStackTrace();
         }
-
+    }
+    public void printToConsole() {
+        for (Transaction transaction : getTransactionList()) {
+            System.out.println(transaction.toString());
+        }
     }
 
     // here we create a Map that maps each month to the discount available for that month
@@ -70,5 +73,4 @@ public class TransactionFile {
     public Map<LocalDate, MonthlyRestriction> getMonthlyRestrictions() {
         return this.monthlyRestrictions;
     }
-
 }
