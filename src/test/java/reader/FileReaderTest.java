@@ -17,8 +17,8 @@ public class FileReaderTest {
         assertEquals(transaction.getDate(), LocalDate.parse("2022-01-01"));
         assertEquals(transaction.getPackageSize(), PackageSize.M);
         assertEquals(transaction.getDeliveryMethod(), DeliveryMethod.MR);
-        assertNull(transaction.getShipmentCostCents());
-        assertNull(transaction.getDiscountCents());
+        assertEquals(transaction.getShipmentCostCents(), 300);
+        assertEquals(transaction.getDiscountCents(), 0);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class FileReaderTest {
         assertEquals(transaction.getPackageSize(), PackageSize.M);
         assertEquals(transaction.getDeliveryMethod(), DeliveryMethod.MR);
         assertEquals(transaction.getShipmentCostCents(), Integer.valueOf(10050));
-        assertNull(transaction.getDiscountCents());
+        assertEquals(transaction.getDiscountCents(), 0);
     }
 
     @Test
@@ -55,6 +55,6 @@ public class FileReaderTest {
         assertNull(transaction.getPackageSize());
         assertNull(transaction.getDeliveryMethod());
         assertNull(transaction.getShipmentCostCents());
-        assertNull(transaction.getDiscountCents());
+        assertEquals(transaction.getDiscountCents(), 0);
     }
 }
