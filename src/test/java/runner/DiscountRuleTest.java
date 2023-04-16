@@ -2,6 +2,9 @@ package runner;
 
 import models.*;
 import org.junit.jupiter.api.Test;
+import runner.DiscountRule;
+import runner.MatchSmallPackagePrice;
+import runner.ThirdLargeShipmentLP;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
