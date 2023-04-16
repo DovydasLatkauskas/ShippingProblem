@@ -17,7 +17,7 @@ public class Transaction {
         this.date = date;
         this.packageSize = packageSize;
         this.deliveryMethod = deliveryMethod;
-        this.shipmentCostCents = null;
+        this.shipmentCostCents = createShipmentCostCents();
         this.discountCents = 0;
         this.badInputText = null;
     }
@@ -109,7 +109,10 @@ public class Transaction {
     }
 
     public void setDiscountCents(Integer discountCents) { this.discountCents = discountCents; }
-    public void increaseDiscountCents(Integer discountCents) { this.discountCents = discountCents + getDiscountCents(); }
+    public void increaseDiscountCents(Integer discountCents) { // also changes the price accordingly
+        this.discountCents = discountCents + getDiscountCents();
+        createShipmentCostCents();
+    }
 
     public String getBadInputText() {
         return badInputText;

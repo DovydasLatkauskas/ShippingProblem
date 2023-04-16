@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static runner.Constants.INPUT_FOLDER_PATH;
+
 public class FileReader {
     public static TransactionFile readFile(String fileName) {
 
-        try ( final Scanner sc = new Scanner(new File(fileName)) ) {
+        try ( final Scanner sc = new Scanner(new File(INPUT_FOLDER_PATH + fileName)) ) {
             List<Transaction> transactionList = new ArrayList<>();
             while ( sc.hasNextLine() ) {
                 String line = sc.nextLine();

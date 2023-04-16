@@ -1,53 +1,31 @@
 package runner;
 
+import models.MonthlyRestriction;
 import models.Transaction;
+import models.TransactionFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static runner.Constants.TOTAL_DISCOUNT_MONTH_CENTS;
 import static runner.DiscountRule.getDiscountRuleList;
 
 public class ApplyDiscounts {
-    public static List<Transaction> applyDiscounts(List<Transaction> input){
-        Map<LocalDate, Integer> discountsLeftEachMonth = createDiscountsLeftEachMonth(input);
+    public static List<Transaction> applyDiscounts(TransactionFile transactionFile){
+        List<Transaction> input = transactionFile.getTransactionList();
+        Map<LocalDate, MonthlyRestriction> monthlyRestrictions = transactionFile.getMonthlyRestrictions();
 
-        for(Transaction transaction : input){
+        for(Transaction transaction : transactionFile.getTransactionList()){
             for(DiscountRule discountRule : getDiscountRuleList()){
-                int discountAmount = checkDiscountMonthAndSubtract(discountRule.applyRule(transaction), discountsLeftEachMonth, transaction);
-                transaction.increaseDiscountCents(discountAmount);
-                transaction.createShipmentCostCents(); // we define the shipment cost after the discount is applied
-
-                // TODO create discount rules
+                // here we apply this discount rule and subtract the used discount amount from the corresponding month's available discount amount
+                int discountAmount = discountRule.applyRule(transaction, monthlyRestrictions.get(transaction.getDate().withDayOfMonth(1)));
+                // in case the shipment cost is lesser than the discount
+                discountAmount = (discountAmount > transaction.getShipmentCostCents()) ? transaction.getShipmentCostCents() : discountAmount;
+                discountAmount = transactionFile.checkDiscountMonthAndSubtract(discountAmount, transaction);
+                transaction.increaseDiscountCents(discountAmount); // we use increase instead of set to allow for multiple discount rules
             }
         }
         return new ArrayList<Transaction>(); // temporary code to compile
-    }
-
-    /**
-     This method checks the availability of a discount for a given transaction and subtracts the used discount amount from the corresponding month's available discount amount.
-     @param inputDiscount the amount of discount requested
-     @param discountsLeftEachMonth a map containing the remaining discounts for each month
-     @param transaction the transaction for which the discount is requested
-     @return the amount of discount applied to the transaction
-     */
-    private static int checkDiscountMonthAndSubtract(int inputDiscount, Map<LocalDate, Integer> discountsLeftEachMonth, Transaction transaction) {
-        int discountLeftThisMonth = discountsLeftEachMonth.get(transaction.getDate().withDayOfMonth(1));
-        int appliedDiscount =  (inputDiscount > discountLeftThisMonth) ? discountLeftThisMonth : inputDiscount;
-        discountsLeftEachMonth.put(transaction.getDate().withDayOfMonth(1), discountLeftThisMonth - appliedDiscount);
-        return appliedDiscount;
-    }
-
-    // here we create a Map that maps each month to the amount of money we can give in discounts
-    private static Map<LocalDate, Integer> createDiscountsLeftEachMonth(List<Transaction> input) {
-        Map<LocalDate, Integer> output = new HashMap<>(); // we use LocalDate instead of month to differentiate different years
-
-        for (Transaction transaction : input) {
-            output.put(transaction.getDate().withDayOfMonth(1), TOTAL_DISCOUNT_MONTH_CENTS); // we set day to 1 since we only care about the month and year
-        }
-        return output;
     }
 }
