@@ -38,7 +38,7 @@ public class RunnerTest {
 
         File expectedOutputFile = new File("src/test/output/" + outputFileName);
         File actualOutputFile = new File(tempDir.getPath(), outputFileName);
-        assertTrue(Files.mismatch(expectedOutputFile.toPath(), actualOutputFile.toPath()) == -1);
+        assertEquals(-1, Files.mismatch(expectedOutputFile.toPath(), actualOutputFile.toPath()));
 
         deleteFolder("src/test/output/temp");
     }
