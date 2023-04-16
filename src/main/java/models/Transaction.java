@@ -91,9 +91,17 @@ public class Transaction {
         return shipmentCostCents;
     }
 
-    public void setShipmentCostCents(Integer discountAmountCents) {
-        shipmentPrice = getDeliveryMethod().getPrice(getPackageSize());
+    public void setShipmentCostCents(Integer shipmentCostCents) {
         this.shipmentCostCents = shipmentCostCents;
+    }
+    public int createShipmentCostCents() { // creates the shipment cost with the existing discount amount
+        this.shipmentCostCents = getDeliveryMethod().getPriceCents(getPackageSize()) - getDiscountCents();
+        return this.shipmentCostCents;
+    }
+    public int createShipmentCostCents(Integer discountAmountCents) { // creates the shipment cost with a discount amount
+        int shipmentPrice = getDeliveryMethod().getPriceCents(getPackageSize());
+        this.shipmentCostCents = shipmentPrice - discountAmountCents;
+        return this.shipmentCostCents;
     }
 
     public Integer getDiscountCents() {

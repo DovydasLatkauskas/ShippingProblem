@@ -23,7 +23,7 @@ public enum DeliveryMethod {
      * @return the price of the package for this delivery method and package size
      * @throws IllegalArgumentException if an invalid package size is provided
      */
-    public double getPrice(PackageSize size) {
+    public int getPriceCents(PackageSize size) {
         switch(size) {
             case S:
                 return priceS;
