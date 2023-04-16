@@ -5,7 +5,6 @@ import models.Transaction;
 import models.TransactionFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import static runner.DiscountRule.getDiscountRuleList;
 
 public class ApplyDiscounts {
     public static List<Transaction> applyDiscounts(TransactionFile transactionFile){
-        List<Transaction> input = transactionFile.getTransactionList();
         Map<LocalDate, MonthlyRestriction> monthlyRestrictions = transactionFile.getMonthlyRestrictions();
 
         for(Transaction transaction : transactionFile.getTransactionList()){

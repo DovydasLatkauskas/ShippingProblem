@@ -23,8 +23,7 @@ public class TransactionFile {
     }
 
     public void createTextFile(String outputFolderPath, String fileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File
-                (outputFolderPath + "output_of_" + fileName)))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFolderPath + "output_of_" + fileName))) {
             for (Transaction transaction : getTransactionList()) {
                 writer.write(transaction.toString());
                 writer.newLine(); // Add a new line after each transaction
@@ -72,7 +71,4 @@ public class TransactionFile {
         return this.monthlyRestrictions;
     }
 
-    public void setMonthlyRestrictions(Map<LocalDate, MonthlyRestriction> monthlyRestrictions) {
-        this.monthlyRestrictions = monthlyRestrictions;
-    }
 }

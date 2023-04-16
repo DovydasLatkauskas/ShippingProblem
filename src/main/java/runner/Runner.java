@@ -16,7 +16,7 @@ public class Runner {
      */
     public static void runApplication(String[] args, String input_folder_path, String output_folder_path){
         for (String fileName : getFileNames(input_folder_path)) {
-            TransactionFile transactionFile = readFile(fileName);
+            TransactionFile transactionFile = readFile(fileName, input_folder_path);
             transactionFile.calculateCosts();
             transactionFile.createTextFile(output_folder_path, fileName);
             //transactionFile.printToConsole();

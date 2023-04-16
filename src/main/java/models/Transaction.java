@@ -10,7 +10,7 @@ public class Transaction {
     // if I'm dealing with money, I want to use non-approximated data types
     private Integer shipmentCostCents; // in cents
     private Integer discountCents; // in cents
-    private String badInputText; // if we get bad input we need to store it for printing
+    private final String BAD_INPUT_TEXT; // if we get bad input we need to store it for printing
 
     // used when reading the input file
     public Transaction(LocalDate date, PackageSize packageSize, DeliveryMethod deliveryMethod) {
@@ -19,11 +19,11 @@ public class Transaction {
         this.deliveryMethod = deliveryMethod;
         this.shipmentCostCents = createShipmentCostCents();
         this.discountCents = 0;
-        this.badInputText = null;
+        this.BAD_INPUT_TEXT = null;
     }
 
     public Transaction(String badInputText) { // if we get bad input
-        this.badInputText = badInputText;
+        this.BAD_INPUT_TEXT = badInputText;
     }
 
     public Transaction(LocalDate date, PackageSize packageSize, DeliveryMethod deliveryMethod,
@@ -33,12 +33,12 @@ public class Transaction {
         this.deliveryMethod = deliveryMethod;
         this.shipmentCostCents = shipmentCostCents;
         this.discountCents = discountCents;
-        this.badInputText = null;
+        this.BAD_INPUT_TEXT = null;
     }
 
     @Override
     public String toString() {
-        if (!(badInputText == null)){
+        if (!(BAD_INPUT_TEXT == null)){
             return String.format("%s Ignored", getBadInputText());
         } else if (shipmentCostCents == null && discountCents.equals(0)){
             return String.format("%tY-%tm-%td %s %s", getDate(), getDate(), getDate(), getPackageSize(), getDeliveryMethod());
@@ -67,56 +67,31 @@ public class Transaction {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public PackageSize getPackageSize() {
         return packageSize;
-    }
-
-    public void setPackageSize(PackageSize packageSize) {
-        this.packageSize = packageSize;
     }
 
     public DeliveryMethod getDeliveryMethod() {
         return deliveryMethod;
     }
 
-    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
     public Integer getShipmentCostCents() {
         return shipmentCostCents;
     }
 
-    public void setShipmentCostCents(Integer shipmentCostCents) {
-        this.shipmentCostCents = shipmentCostCents;
-    }
     public int createShipmentCostCents() { // creates the shipment cost with the existing discount amount
         this.shipmentCostCents = getDeliveryMethod().getPriceCents(getPackageSize()) - getDiscountCents();
         return this.shipmentCostCents;
     }
-    public int createShipmentCostCents(Integer discountAmountCents) { // creates the shipment cost with a discount amount
-        int shipmentPrice = getDeliveryMethod().getPriceCents(getPackageSize());
-        this.shipmentCostCents = shipmentPrice - discountAmountCents;
-        return this.shipmentCostCents;
-    }
-
     public Integer getDiscountCents() {
         return (this.discountCents == null) ? 0 : this.discountCents;
     }
-
-    public void setDiscountCents(Integer discountCents) { this.discountCents = discountCents; }
     public void increaseDiscountCents(Integer discountCents) { // also changes the price accordingly
         this.discountCents = discountCents + getDiscountCents();
         createShipmentCostCents();
     }
 
     public String getBadInputText() {
-        return badInputText;
+        return BAD_INPUT_TEXT;
     }
-
-    public void setBadInputText(String badInputText) { this.badInputText = badInputText; }
 }

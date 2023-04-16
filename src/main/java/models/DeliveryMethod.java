@@ -11,7 +11,7 @@ public enum DeliveryMethod {
     private final int priceM;
     private final int priceL;
 
-    private DeliveryMethod(int priceS, int priceM, int priceL) {
+    DeliveryMethod(int priceS, int priceM, int priceL) {
         this.priceS = priceS;
         this.priceM = priceM;
         this.priceL = priceL;
@@ -24,16 +24,12 @@ public enum DeliveryMethod {
      * @throws IllegalArgumentException if an invalid package size is provided
      */
     public int getPriceCents(PackageSize size) {
-        switch(size) {
-            case S:
-                return priceS;
-            case M:
-                return priceM;
-            case L:
-                return priceL;
-            default:
-                throw new IllegalArgumentException("Invalid package size: " + size);
-        }
+        return switch (size) {
+            case S -> priceS;
+            case M -> priceM;
+            case L -> priceL;
+            default -> throw new IllegalArgumentException("Invalid package size: " + size);
+        };
     }
 }
 
