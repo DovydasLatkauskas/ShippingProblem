@@ -1,6 +1,7 @@
 package models;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ public class TransactionFile {
     }
 
     public void createTextFile(String outputFolderPath, String fileName) {
+        File folder = new File("output/");
+        folder.mkdir();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFolderPath + "output_of_" + fileName))) {
             for (Transaction transaction : getTransactionList()) {
                 writer.write(transaction.toString() + "\n");
