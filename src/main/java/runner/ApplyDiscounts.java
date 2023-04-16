@@ -17,6 +17,7 @@ public class ApplyDiscounts {
         Map<LocalDate, MonthlyRestriction> monthlyRestrictions = transactionFile.getMonthlyRestrictions();
 
         for(Transaction transaction : transactionFile.getTransactionList()){
+            if(transaction.getBadInputText() != null){continue;} // we skip bad inputs
             for(DiscountRule discountRule : getDiscountRuleList()){
                 // here we apply this discount rule and subtract the used discount amount from the corresponding month's available discount amount
                 int discountAmount = discountRule.applyRule(transaction, monthlyRestrictions.get(transaction.getDate().withDayOfMonth(1)));
@@ -26,6 +27,6 @@ public class ApplyDiscounts {
                 transaction.increaseDiscountCents(discountAmount); // we use increase instead of set to allow for multiple discount rules
             }
         }
-        return new ArrayList<Transaction>(); // temporary code to compile
+        return transactionFile.getTransactionList();
     }
 }

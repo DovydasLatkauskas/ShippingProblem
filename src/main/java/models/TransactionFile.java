@@ -1,5 +1,9 @@
 package models;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -18,11 +22,26 @@ public class TransactionFile {
         setTransactionList(applyDiscounts(this));
     }
 
+    public void createTextFile(String outputFolderPath, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File
+                (outputFolderPath + "output_of_" + fileName)))) {
+            for (Transaction transaction : getTransactionList()) {
+                writer.write(transaction.toString());
+                writer.newLine(); // Add a new line after each transaction
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred in TransactionFile.createTextFile.");
+            e.printStackTrace();
+        }
+
+    }
+
     // here we create a Map that maps each month to the discount available for that month
     private static Map<LocalDate, MonthlyRestriction> createMonthlyRestrictionMap(List<Transaction> input) {
         Map<LocalDate, MonthlyRestriction> output = new HashMap<>(); // we use LocalDate instead of month to differentiate different years
 
         for (Transaction transaction : input) {
+            if(transaction.getBadInputText() != null){continue;} // we skip bad inputs
             output.put(transaction.getDate().withDayOfMonth(1), new MonthlyRestriction()); // we set day to 1 since we only care about the month and year
         }
         return output;

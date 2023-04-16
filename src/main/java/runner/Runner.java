@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static reader.FileReader.readFile;
-import static runner.Constants.INPUT_FOLDER_PATH;
 
 public class Runner {
     /**
-    Main function for running the program
+     Main function for running the program
+     Separate from main, so that I can define a different input folder path for testing
      */
-    public static void runApplication(String[] args){
-        for (String fileName : getFileNames(INPUT_FOLDER_PATH)) {
+    public static void runApplication(String[] args, String input_folder_path, String output_folder_path){
+        for (String fileName : getFileNames(input_folder_path)) {
             TransactionFile transactionFile = readFile(fileName);
             transactionFile.calculateCosts();
-            //transactionFile.createTextFile();
+            transactionFile.createTextFile(output_folder_path, fileName);
             //transactionFile.printToConsole();
         }
     }

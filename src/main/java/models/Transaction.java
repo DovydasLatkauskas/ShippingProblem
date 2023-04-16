@@ -105,7 +105,7 @@ public class Transaction {
     }
 
     public Integer getDiscountCents() {
-        return discountCents;
+        return (this.discountCents == null) ? 0 : this.discountCents;
     }
 
     public void setDiscountCents(Integer discountCents) { this.discountCents = discountCents; }

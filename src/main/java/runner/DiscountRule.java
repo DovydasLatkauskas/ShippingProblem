@@ -15,6 +15,7 @@ public abstract class DiscountRule {
     public static List<DiscountRule> getDiscountRuleList(){
         List<DiscountRule> discountList = new ArrayList<>();
         discountList.add(new MatchSmallPackagePrice());
+        discountList.add(new ThirdLargeShipmentLP());
         return discountList;
     }
 }
